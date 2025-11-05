@@ -52,6 +52,11 @@ router.put("/leccion/finish", [
     validarCampos
 ], controller.finishProgresoLeccion);
 
+/* Borra un ProgresoLeccion */
+router.delete("/leccion/:id", [
+    validarJWT,
+], controller.deleteProgresoLeccion);
+
 
 /*  ------------------------------ COLECCION - PROGRESO SECCION------------------------------ */
 

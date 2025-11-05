@@ -38,7 +38,6 @@ export const routes = ({ app }) => {
   app.use(routesPaths.MATERIAL, routerPaths.MATERIAL);
   app.use(routesPaths.CONTENIDO_MAT, routerPaths.CONTENIDO_MAT);
   app.use(routesPaths.PROGRESO, routerPaths.PROGRESO);
-  app.use(routesPaths.PROGRESO, routerPaths.PROGRESO);
 };
 
 export default routes;

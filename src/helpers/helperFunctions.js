@@ -33,11 +33,11 @@ export const checkUserStatusForLogin = (user, password) => {
 export const checkIfObjectExists = ({ objectId = '', object, type = false, objectType = '' }) => {
 
     if (object === null) {
-        handleDatabaseError({ status: 407, error: `No Existe el/la ${objectType} que estas buscando` });
+        handleDatabaseError({ status: 404, error: `No Existe el/la ${objectType} que estas buscando` });
     }
 
     if ((!type) ? (!object) : (object.length === 0)) {
-        handleDatabaseError({ status: 407, error: `No Existe ${objectType} con id: ${objectId}` });
+        handleDatabaseError({ status: 404, error: `No Existe ${objectType} con id: ${objectId}` });
     }
 
 };
@@ -45,7 +45,6 @@ export const checkIfObjectExists = ({ objectId = '', object, type = false, objec
 export const isValidMongoDBID = (id) => {
 
     const objectIdPattern = /^[0-9a-fA-F]{24}$/;
-    objectIdPattern.test(id);
 
     if (!objectIdPattern.test(id)) {
         throw new Error('El ID proporcionado no es válido');

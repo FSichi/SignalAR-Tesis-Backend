@@ -79,10 +79,9 @@ class ProgresoService {
                 ? await this._alumnoService.getAndCheckAlumno({ idAlumno: data.alumno })
                 : await this._userService.getUserById({ id: data.alumno });
 
-            await this._materialService.getLeccionById({ id: data.leccion });
+            //await this._materialService.getLeccionById({ id: data.leccion });
 
             const progreso = await this._PL_repository.create({ data });
-
 
             const progresoAlumno = await this.getOneProgresoAlumno({ id: data.alumno });
 
@@ -117,6 +116,18 @@ class ProgresoService {
             await this.getOneProgresoLeccion({ id });
 
             const progreso = await this._PL_repository.update({ id, data });
+            return progreso;
+        } catch (error) {
+            handleProcessError({ status: error.status, error: error.message || '' });
+        }
+    }
+
+    deleteProgresoLeccion = async (id) => {
+        try {
+
+            await this.getOneProgresoLeccion({ id });
+
+            const progreso = await this._PL_repository.delete({ id });
             return progreso;
         } catch (error) {
             handleProcessError({ status: error.status, error: error.message || '' });
@@ -162,7 +173,7 @@ class ProgresoService {
                 ? await this._alumnoService.getAndCheckAlumno({ idAlumno: data.alumno })
                 : await this._userService.getUserById({ id: data.alumno });
 
-            await this._materialService.getSeccionById({ id: data.seccion });
+            //await this._materialService.getSeccionById({ id: data.seccion });
 
             const progreso = await this._PS_repository.create({ data });
 
@@ -309,8 +320,6 @@ class ProgresoService {
         }
     }
 
-
-
     getOneProgresoAlumno = async ({ id }) => {
         try {
 
@@ -328,9 +337,9 @@ class ProgresoService {
     createProgresoAlumno = async ({ data, userRol }) => {
         try {
 
-            (userRol === (UserRoles.ADMIN_ROLE || UserRoles.PROFESIONAL_ROLE))
+            /*(userRol === (UserRoles.ADMIN_ROLE || UserRoles.PROFESIONAL_ROLE))
                 ? await this._alumnoService.getAndCheckAlumno({ idAlumno: data.alumno })
-                : await this._userService.getUserById({ id: data.alumno });
+                : await this._userService.getUserById({ id: data.alumno });*/
 
 
             const progreso = await this._PA_repository.create({ data });
