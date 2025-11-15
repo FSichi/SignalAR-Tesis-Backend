@@ -61,8 +61,8 @@ export const TipoActividad = {
 
 export const ProgresoEvaluacion = {
     PENDIENTE: 'PENDIENTE',
-    COMPLETADO: 'COMPLETADO',
-    DESAPROBADO: 'DESAPROBADO',
+    APROBADA: 'APROBADA',
+    DESAPROBADA: 'DESAPROBADA',
 }
 
 export const Recurso = {

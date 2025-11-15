@@ -118,8 +118,8 @@ router.post("/evaluacion", [
     validarJWT,
     check('alumno', 'El Alumno asociado es obligatorio').not().isEmpty(),
     check('evaluacion', 'La Evaluacion Asociada al progreso es obligatoria').not().isEmpty(),
-    check('progreso', 'El Progreso es obligatorio y pertenecer a [PENDIENTE - COMPLETADO]').not().isEmpty().isIn([
-        ProgresoEvaluacion.PENDIENTE, ProgresoEvaluacion.COMPLETADO, ProgresoEvaluacion.DESAPROBADO
+    check('progreso', 'El Progreso es obligatorio y pertenecer a [PENDIENTE - APROBADA]').not().isEmpty().isIn([
+        ProgresoEvaluacion.PENDIENTE, ProgresoEvaluacion.APROBADA, ProgresoEvaluacion.DESAPROBADA
     ]),
     validarCampos
 ], controller.createProgresoEvaluacion);
@@ -128,8 +128,8 @@ router.post("/evaluacion", [
 router.put("/evaluacion", [
     validarJWT,
     check('_id', 'El id del registro de Progreso de Leccion es obligatorio').not().isEmpty(),
-    check('progreso', 'El Progreso es obligatorio y pertenecer a [PENDIENTE - COMPLETADO]').not().isEmpty().isIn([
-        ProgresoEvaluacion.PENDIENTE, ProgresoEvaluacion.COMPLETADO, ProgresoEvaluacion.DESAPROBADO
+    check('progreso', 'El Progreso es obligatorio y pertenecer a [PENDIENTE - APROBADA]').not().isEmpty().isIn([
+        ProgresoEvaluacion.PENDIENTE, ProgresoEvaluacion.APROBADA, ProgresoEvaluacion.DESAPROBADA
     ]),
     validarCampos
 ], controller.updateProgresoEvaluacion);

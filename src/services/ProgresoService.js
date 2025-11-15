@@ -276,7 +276,7 @@ class ProgresoService {
                 ? await this._alumnoService.getAndCheckAlumno({ idAlumno: data.alumno })
                 : await this._userService.getUserById({ id: data.alumno });
 
-            await this._materialService.getEvaluativoById({ id: data.evaluacion });
+            //await this._materialService.getEvaluativoById({ id: data.evaluacion });
 
             const progreso = await this._PE_repository.create({ data });
 
