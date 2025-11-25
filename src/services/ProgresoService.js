@@ -74,7 +74,7 @@ class ProgresoService {
 
     createProgresoLeccion = async ({ data, userRol }) => {
         try {
-
+            console.log(userRol);
             (userRol === (UserRoles.ADMIN_ROLE || UserRoles.PROFESIONAL_ROLE))
                 ? await this._alumnoService.getAndCheckAlumno({ idAlumno: data.alumno })
                 : await this._userService.getUserById({ id: data.alumno });
