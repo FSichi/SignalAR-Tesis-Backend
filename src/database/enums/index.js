@@ -65,6 +65,11 @@ export const ProgresoEvaluacion = {
     DESAPROBADA: 'DESAPROBADA',
 }
 
+export const ProgresoLeccionEnum = {
+    PENDIENTE: 'PENDIENTE',
+    COMPLETADO: 'COMPLETADO',
+}
+
 export const Recurso = {
     MEMORIA: 'JuegoDeLaMemoria',
     AHORCADITO: 'Ahorcadito',

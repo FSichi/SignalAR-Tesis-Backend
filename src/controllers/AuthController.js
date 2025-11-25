@@ -19,6 +19,33 @@ class AuthController {
         }
     };
 
+    registerUser = async (req, res) => {
+        const { nombreCompleto, correo, password, rol, fichaData = {} } = req.body;
+
+        try {
+            const { usuario, ficha, token } = await this._authService.registerUser({
+                nombreCompleto,
+                correo,
+                password,
+                rol,
+                fichaData
+            });
+
+            handleSuccessResponse(res, 201, {
+                user: usuario,
+                ficha,
+                token
+            });
+
+        } catch (error) {
+            handleErrorResponse(res, {
+                status: error?.status || 500,
+                message: error?.message || error
+            });
+        }
+    }
+
+
     renewToken = async (req, res) => {
 
         const { _id } = req.usuario;

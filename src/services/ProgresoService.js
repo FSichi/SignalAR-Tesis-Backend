@@ -134,6 +134,18 @@ class ProgresoService {
         }
     }
 
+    deleteProgresoSeccion = async (id) => {
+        try {
+
+            await this.getOneProgresoSeccion({ id });
+
+            const progreso = await this._PS_repository.delete({ id });
+            return progreso;
+        } catch (error) {
+            handleProcessError({ status: error.status, error: error.message || '' });
+        }
+    }
+
 
 
     getAllProgresoSeccionByAlumnoId = async ({ id, userRole }) => {
@@ -175,6 +187,11 @@ class ProgresoService {
 
             //await this._materialService.getSeccionById({ id: data.seccion });
 
+            const progresoSeccionesAlumno = await this._PS_repository.getAllByAlumno({alumnoId: data.alumno});
+            if(progresoSeccionesAlumno.filter(progreso => progreso.seccion == data.seccion).length > 0){
+                throw({status: 400, message: 'Ya existe progreso para este alumno con esta seccion'})
+            }
+            
             const progreso = await this._PS_repository.create({ data });
 
             const progresoAlumno = await this.getOneProgresoAlumno({ id: data.alumno });

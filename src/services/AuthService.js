@@ -59,6 +59,42 @@ class AuthService {
         }
     }
 
+    async registerUser({ nombreCompleto, correo, password, rol, fichaData }) {
+        try {
+            // 1. Check if the user already exists
+            const userExists = await this._userRepository.getUserByEmail({ correo });
+            if (userExists) {
+                handleProcessError({ status: 400, error: "El correo ingresado ya está registrado" });
+            }
+
+            // 2. Encrypt password
+            const hashedPassword = encryptPassword(password);
+
+            // 3. Create user record
+            const newUser = await this._userRepository.createUser({
+                nombreCompleto,
+                correo,
+                password: hashedPassword,
+                rol,
+                img: "default.jpg", // or whatever you want
+            });
+
+            // 4. Create ficha depending on user role
+            const newFicha = await this._userRepository.createFicha({
+                rol,
+                data: { usuario: newUser._id, ...fichaData }
+            });
+
+            // 5. Generate JWT
+            const token = await generarJWT(newUser._id);
+
+            return { usuario: newUser, ficha: newFicha, token };
+
+        } catch (error) {
+            handleProcessError({ status: error.status || 500, error: error.message || error });
+        }
+    }
+
 }
 
 export default AuthService;

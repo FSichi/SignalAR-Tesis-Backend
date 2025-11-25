@@ -3,7 +3,7 @@ import { check } from 'express-validator';
 import ProgresoController from '../controllers/ProgresoController.js';
 
 import { validarCampos, validarJWT } from '../middlewares/index.js';
-import { ProgresoEvaluacion } from '../database/enums/index.js';
+import { ProgresoEvaluacion, ProgresoLeccionEnum } from '../database/enums/index.js';
 
 const router = Router();
 const controller = new ProgresoController();
@@ -26,7 +26,7 @@ router.post("/leccion", [
     check('alumno', 'El Alumno asociado es obligatorio').not().isEmpty(),
     check('leccion', 'La Leccion Asociada al progreso es obligatoria').not().isEmpty(),
     check('progreso', 'El Progreso es obligatorio y pertenecer a [PENDIENTE - COMPLETADO]').not().isEmpty().isIn([
-        ProgresoEvaluacion.PENDIENTE, ProgresoEvaluacion.COMPLETADO
+        ProgresoLeccionEnum.PENDIENTE, ProgresoLeccionEnum.COMPLETADO
     ]),
     check('teoria', 'El Progreso de la teoria es obligatorio y debe ser un booleano').not().isEmpty().isBoolean(),
     check('practica', 'El Progreso de la practica es obligatorio y debe ser un booleano').not().isEmpty().isBoolean(),
@@ -38,7 +38,7 @@ router.put("/leccion", [
     validarJWT,
     check('_id', 'El id del registro de Progreso de Leccion es obligatorio').not().isEmpty(),
     check('progreso', 'El Progreso es obligatorio y pertenecer a [PENDIENTE - COMPLETADO]').not().isEmpty().isIn([
-        ProgresoEvaluacion.PENDIENTE, ProgresoEvaluacion.COMPLETADO
+        ProgresoLeccionEnum.PENDIENTE, ProgresoLeccionEnum.COMPLETADO
     ]),
     check('teoria', 'El Progreso de la teoria es obligatorio y debe ser un booleano').not().isEmpty().isBoolean(),
     check('practica', 'El Progreso de la practica es obligatorio y debe ser un booleano').not().isEmpty().isBoolean(),
@@ -76,7 +76,7 @@ router.post("/seccion", [
     check('alumno', 'El Alumno asociado es obligatorio').not().isEmpty(),
     check('seccion', 'La Seccion Asociada al progreso es obligatoria').not().isEmpty(),
     check('progreso', 'El Progreso es obligatorio y pertenecer a [PENDIENTE - COMPLETADO]').not().isEmpty().isIn([
-        ProgresoEvaluacion.PENDIENTE, ProgresoEvaluacion.COMPLETADO
+        ProgresoEvaluacion.PENDIENTE, ProgresoLeccionEnum.COMPLETADO
     ]),
     check('leccionesCompletadas', 'El numero de lecciones completadas es obligatorio y debe ser un Numero').not().isEmpty().isNumeric(),
     validarCampos
@@ -87,7 +87,7 @@ router.put("/seccion", [
     validarJWT,
     check('_id', 'El id del registro de Progreso de Leccion es obligatorio').not().isEmpty(),
     check('progreso', 'El Progreso es obligatorio y pertenecer a [PENDIENTE - COMPLETADO]').not().isEmpty().isIn([
-        ProgresoEvaluacion.PENDIENTE, ProgresoEvaluacion.COMPLETADO
+        ProgresoEvaluacion.PENDIENTE, ProgresoLeccionEnum.COMPLETADO
     ]),
     check('leccionesCompletadas', 'El numero de lecciones completadas es obligatorio y debe ser un Numero').not().isEmpty().isNumeric(),
     validarCampos
@@ -99,6 +99,11 @@ router.put("/seccion/finish", [
     check('_id', 'El id del registro de Progreso de Seccion es obligatorio').not().isEmpty(),
     validarCampos
 ], controller.finishProgresoSeccion);
+
+/* Borra un ProgresoSeccion */
+router.delete("/seccion/:id", [
+    validarJWT,
+], controller.deleteProgresoSeccion);
 
 
 /*  ------------------------------ COLECCION - PROGRESO EVALUACION------------------------------ */

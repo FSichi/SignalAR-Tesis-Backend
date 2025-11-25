@@ -59,10 +59,21 @@ class UserRepository extends GenericRepository {
                 fichaCreated = await FParticularModel.create(data);
             } else if (rol === UserRoles.PROFESIONAL_ROLE) {
                 fichaCreated = await FProfesionalModel.create(data);
+            } else {
+                handleDatabaseError({ status: 400, error: "Rol invalido" });
             }
 
             return fichaCreated;
 
+        } catch (error) {
+            handleDatabaseError({ status: error.status || 500, error: error.message || error });
+        }
+    }
+
+    async createUser(user) {
+        try {
+            const userCreated = await UsuarioModel.create(user);
+            return userCreated;
         } catch (error) {
             handleDatabaseError({ status: error.status || 500, error: error.message || error });
         }

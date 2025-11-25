@@ -29,7 +29,11 @@ const ProgresoSeccionSchema = Schema({
 });
 
 // Índices
-ProgresoSeccionSchema.index({ 'alumno.tipo': 1, 'alumno.referencia': 1 });
+//ProgresoSeccionSchema.index({ 'alumno.tipo': 1, 'alumno.referencia': 1 });
+ProgresoSeccionSchema.index(
+  { alumno: 1, seccion: 1 },
+  { unique: true }
+);
 
 ProgresoSeccionSchema.methods.toJSON = function () {
     const { __v, ...data } = this.toObject();

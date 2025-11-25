@@ -30,4 +30,10 @@ router.put('/change-password', [
     validarCampos
 ], controller.updateUserPassword);
 
+router.post('/register', [
+    check('correo', 'El Correo no es valido').not().isEmpty().isEmail(),
+    check('password', 'El Password debe contener entre 6 y 15 Caracteres').not().isEmpty().isLength({ min: 6, max: 15 }),
+    validarCampos
+], controller.registerUser);
+
 export default router;

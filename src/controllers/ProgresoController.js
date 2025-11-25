@@ -100,6 +100,17 @@ class ProgresoController {
         }
     }
 
+    deleteProgresoSeccion = async (req, res) => {
+
+        const { id } = req.params;
+        try {
+            const progreso = await this._service.deleteProgresoSeccion(id);
+            handleSuccessResponse(res, 200, progreso);
+        } catch (error) {
+            handleErrorResponse(res, error);
+        }
+    }
+
 
     getAllProgresoSeccionByAlumnoId = async (req, res) => {
 

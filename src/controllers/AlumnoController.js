@@ -59,6 +59,17 @@ class AlumnoController {
         }
     };
 
+    getReporteAlumno = async(req, res) => {
+        const { idAlumno } = req.query;
+
+        try {
+            const reporteAlumno = await this._alumnoService.getReporteAlumno(idAlumno);
+            handleSuccessResponse(res, 200, reporteAlumno)
+        } catch (error) {
+            handleErrorResponse(res, error);
+        }
+    }
+
 
     createAlumno = async (req, res) => {
 

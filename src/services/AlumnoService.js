@@ -1,4 +1,5 @@
 import AlumnoRepository from "../repository/AlumnoRepository.js";
+import ProgresoLeccionRepository from "../repository/ProgresoLeccionRepository.js"
 import { checkIfObjectExists, isValidMongoDBID } from "../helpers/helperFunctions.js";
 import { handleProcessError } from "../messages/ErrorHandlers.js";
 import { UserRoles } from "../database/enums/index.js";
@@ -7,6 +8,7 @@ class AlumnoService {
 
     constructor() {
         this._alumnoRepository = new AlumnoRepository();
+        this._progresoLeccionRepository = new ProgresoLeccionRepository();
     }
 
     async getAllAlumnos() {
@@ -77,6 +79,17 @@ class AlumnoService {
             handleProcessError({ status: error.status, error: error.message || '' });
         }
     };
+
+    async getRerporteAlumno( idAlumno ){
+        try {
+            const alumno = await this._alumnoRepository.getById(idAlumno);
+            const progresosLeccion = await this._progresoAlumnoRepository.getAll({ idAlumno });
+            //const lecciones = await this.
+            //return alumnoCreated;
+        } catch (error) {
+            handleProcessError({ status: error.status, error: error.message || '' });
+        }
+    }
 
     async createAlumno({ data }) {
         try {
