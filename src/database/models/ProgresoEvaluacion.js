@@ -26,6 +26,11 @@ const ProgresoEvaluacionSchema = Schema({
 // Índices
 ProgresoEvaluacionSchema.index({ 'alumno.tipo': 1, 'alumno.referencia': 1 });
 
+ProgresoEvaluacionSchema.index(
+  { alumno: 1, evaluacion: 1 },
+  { unique: true }
+);
+
 ProgresoEvaluacionSchema.methods.toJSON = function () {
     const { __v, ...data } = this.toObject();
     return data;

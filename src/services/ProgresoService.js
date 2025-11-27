@@ -75,7 +75,7 @@ class ProgresoService {
     createProgresoLeccion = async ({ data, userRol }) => {
         try {
             console.log(userRol);
-            (userRol === (UserRoles.ADMIN_ROLE || UserRoles.PROFESIONAL_ROLE))
+            (userRol === UserRoles.ADMIN_ROLE || userRol === UserRoles.PROFESIONAL_ROLE)
                 ? await this._alumnoService.getAndCheckAlumno({ idAlumno: data.alumno })
                 : await this._userService.getUserById({ id: data.alumno });
 
@@ -146,6 +146,18 @@ class ProgresoService {
         }
     }
 
+    deleteProgresoEvaluacion = async (id) => {
+        try {
+
+            await this.getOneProgresoEvaluacion({ id });
+
+            const progreso = await this._PE_repository.delete({ id });
+            return progreso;
+        } catch (error) {
+            handleProcessError({ status: error.status, error: error.message || '' });
+        }
+    }
+
 
 
     getAllProgresoSeccionByAlumnoId = async ({ id, userRole }) => {
@@ -181,7 +193,7 @@ class ProgresoService {
     createProgresoSeccion = async ({ data, userRol }) => {
         try {
 
-            (userRol === (UserRoles.ADMIN_ROLE || UserRoles.PROFESIONAL_ROLE))
+            (userRol === UserRoles.ADMIN_ROLE || userRol === UserRoles.PROFESIONAL_ROLE)
                 ? await this._alumnoService.getAndCheckAlumno({ idAlumno: data.alumno })
                 : await this._userService.getUserById({ id: data.alumno });
 
@@ -289,7 +301,7 @@ class ProgresoService {
     createProgresoEvaluacion = async ({ data, userRol }) => {
         try {
 
-            (userRol === (UserRoles.ADMIN_ROLE || UserRoles.PROFESIONAL_ROLE))
+            (userRol === UserRoles.ADMIN_ROLE || userRol === UserRoles.PROFESIONAL_ROLE)
                 ? await this._alumnoService.getAndCheckAlumno({ idAlumno: data.alumno })
                 : await this._userService.getUserById({ id: data.alumno });
 

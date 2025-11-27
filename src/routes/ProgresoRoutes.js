@@ -146,6 +146,12 @@ router.put("/evaluacion/finish", [
     validarCampos
 ], controller.finishProgresoEvaluacion);
 
+/* Borra un ProgresoEvaluacion */
+router.delete("/evaluacion/:id", [
+    validarJWT,
+], controller.deleteProgresoEvaluacion);
+
+
 
 /*  ------------------------------ COLECCION - PROGRESO ALUMNO------------------------------ */
 
